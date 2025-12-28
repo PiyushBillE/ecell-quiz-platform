@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: ecell-quiz-platform
+    env: node
+    buildCommand: npm run install-all && cd client && npm run build
+    startCommand: cd server && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+    healthCheckPath: /api/health
+
