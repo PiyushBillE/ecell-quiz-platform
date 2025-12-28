@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
 
@@ -17,7 +16,6 @@ const CreateQuiz = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-  const navigate = useNavigate();
 
   const handleNumQuestionsChange = (e) => {
     const num = parseInt(e.target.value) || 1;
@@ -145,7 +143,7 @@ const CreateQuiz = () => {
         }
       });
 
-      const response = await axios.post(`${API_URL}/quiz/create`, formData, {
+      await axios.post(`${API_URL}/quiz/create`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -173,36 +171,36 @@ const CreateQuiz = () => {
 
   return (
     <div>
-      <h2 className="text-2xl font-semibold mb-6">Create New Quiz</h2>
+      <h2 className="text-2xl font-semibold bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent mb-6">Create New Quiz</h2>
 
       {error && (
-        <div className="mb-4 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+        <div className="mb-4 bg-red-500/10 border border-red-500/30 text-red-300 px-4 py-3 rounded-lg backdrop-blur-sm">
           {error}
         </div>
       )}
 
       {success && (
-        <div className="mb-4 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded">
+        <div className="mb-4 bg-green-500/10 border border-green-500/30 text-green-300 px-4 py-3 rounded-lg backdrop-blur-sm">
           {success}
         </div>
       )}
 
       <form onSubmit={handleSubmit} className="space-y-8">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-gray-300 mb-2">
             Quiz Name
           </label>
           <input
             type="text"
             value={quizName}
             onChange={(e) => setQuizName(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 text-white placeholder-gray-500 rounded-lg focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 backdrop-blur-sm"
             required
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-gray-300 mb-2">
             Number of Questions
           </label>
           <input
@@ -211,44 +209,44 @@ const CreateQuiz = () => {
             max="50"
             value={numQuestions}
             onChange={handleNumQuestionsChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 text-white placeholder-gray-500 rounded-lg focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 backdrop-blur-sm"
             required
           />
         </div>
 
         {questions.map((question, qIndex) => (
-          <div key={qIndex} className="border border-gray-200 rounded-lg p-6 space-y-4">
-            <h3 className="text-lg font-semibold text-gray-800">
+          <div key={qIndex} className="border border-gray-700/50 rounded-xl p-6 space-y-4 bg-gradient-to-br from-gray-800/30 to-gray-900/30 backdrop-blur-sm">
+            <h3 className="text-lg font-semibold text-white">
               Question {qIndex + 1}
             </h3>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-300 mb-2">
                 Question Text
               </label>
               <textarea
                 value={question.question_text}
                 onChange={(e) => handleQuestionChange(qIndex, 'question_text', e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 text-white placeholder-gray-500 rounded-lg focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 backdrop-blur-sm"
                 rows="3"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-300 mb-2">
                 Question Image (Optional)
               </label>
               <input
                 type="file"
                 accept="image/*"
                 onChange={(e) => handleImageChange(qIndex, e.target.files[0])}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 text-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 backdrop-blur-sm file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-500/20 file:text-blue-300 hover:file:bg-blue-500/30"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-300 mb-2">
                 Options (2-4 options, select one as correct)
               </label>
               {question.options.map((option, oIndex) => (
@@ -258,21 +256,21 @@ const CreateQuiz = () => {
                     name={`correct-${qIndex}`}
                     checked={option.is_correct}
                     onChange={() => handleCorrectAnswerChange(qIndex, oIndex)}
-                    className="h-4 w-4 text-blue-600 focus:ring-blue-500"
+                    className="h-4 w-4 text-blue-500 focus:ring-blue-500 bg-gray-800 border-gray-700"
                   />
                   <input
                     type="text"
                     value={option.option_text}
                     onChange={(e) => handleOptionChange(qIndex, oIndex, e.target.value)}
                     placeholder={`Option ${oIndex + 1}`}
-                    className="flex-1 px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                    className="flex-1 px-4 py-2 bg-gray-800/50 border border-gray-700 text-white placeholder-gray-500 rounded-lg focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 backdrop-blur-sm"
                     required
                   />
                   {question.options.length > 2 && (
                     <button
                       type="button"
                       onClick={() => removeOption(qIndex, oIndex)}
-                      className="px-3 py-2 text-red-600 hover:bg-red-50 rounded-md"
+                      className="px-3 py-2 text-red-400 hover:bg-red-500/20 rounded-lg transition-colors"
                     >
                       Remove
                     </button>
@@ -283,7 +281,7 @@ const CreateQuiz = () => {
                 <button
                   type="button"
                   onClick={() => addOption(qIndex)}
-                  className="mt-2 px-4 py-2 text-sm text-blue-600 hover:bg-blue-50 rounded-md"
+                  className="mt-2 px-4 py-2 text-sm text-blue-400 hover:bg-blue-500/20 rounded-lg transition-colors"
                 >
                   + Add Option
                 </button>
@@ -296,7 +294,7 @@ const CreateQuiz = () => {
           <button
             type="submit"
             disabled={loading}
-            className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-6 py-3 bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 text-white rounded-lg hover:from-blue-700 hover:via-blue-800 hover:to-blue-900 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 font-semibold"
           >
             {loading ? 'Saving...' : 'Save Quiz (Draft)'}
           </button>

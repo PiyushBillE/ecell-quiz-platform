@@ -77,38 +77,38 @@ const CurrentQuizzes = () => {
 
   return (
     <div>
-      <h2 className="text-2xl font-semibold mb-6">Current Quizzes</h2>
+      <h2 className="text-2xl font-semibold bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent mb-6">Current Quizzes</h2>
 
       {error && (
-        <div className="mb-4 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+        <div className="mb-4 bg-red-500/10 border border-red-500/30 text-red-300 px-4 py-3 rounded-lg backdrop-blur-sm">
           {error}
         </div>
       )}
 
       {quizzes.length === 0 ? (
         <div className="text-center py-20">
-          <p className="text-xl text-gray-500">No quizzes created yet.</p>
-          <p className="text-gray-400 mt-2">Create your first quiz to get started!</p>
+          <p className="text-xl text-gray-400">No quizzes created yet.</p>
+          <p className="text-gray-500 mt-2">Create your first quiz to get started!</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {quizzes.map((quiz) => (
             <div
               key={quiz.id}
-              className="bg-white border-2 border-gray-200 rounded-lg shadow-md p-6"
+              className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 p-6 hover:scale-105"
             >
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">
+              <h3 className="text-xl font-semibold text-white mb-2">
                 {quiz.title}
               </h3>
-              <p className="text-sm text-gray-500 mb-4">
+              <p className="text-sm text-gray-400 mb-4">
                 Created: {formatDate(quiz.created_at)}
               </p>
               <div className="mb-4">
                 <span
-                  className={`inline-block px-3 py-1 text-xs font-semibold rounded-full ${
+                  className={`inline-block px-3 py-1 text-xs font-semibold rounded-full border ${
                     quiz.is_active
-                      ? 'text-green-600 bg-green-100'
-                      : 'text-yellow-600 bg-yellow-100'
+                      ? 'text-green-300 bg-green-500/20 border-green-500/30'
+                      : 'text-yellow-300 bg-yellow-500/20 border-yellow-500/30'
                   }`}
                 >
                   {quiz.is_active ? 'Active' : 'Draft'}
@@ -118,20 +118,20 @@ const CurrentQuizzes = () => {
                 {!quiz.is_active && (
                   <button
                     onClick={() => handleUpload(quiz.id)}
-                    className="flex-1 px-4 py-2 bg-green-600 text-white text-sm rounded-md hover:bg-green-700 transition-colors"
+                    className="flex-1 px-4 py-2 bg-gradient-to-r from-green-600 to-green-700 text-white text-sm rounded-lg hover:from-green-700 hover:to-green-800 transition-all duration-300 shadow-lg font-semibold"
                   >
                     Upload
                   </button>
                 )}
                 <button
                   onClick={() => handleDisplay(quiz.id)}
-                  className="flex-1 px-4 py-2 bg-blue-600 text-white text-sm rounded-md hover:bg-blue-700 transition-colors"
+                  className="flex-1 px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white text-sm rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-300 shadow-lg font-semibold"
                 >
                   Display
                 </button>
                 <button
                   onClick={() => handleDelete(quiz.id)}
-                  className="flex-1 px-4 py-2 bg-red-600 text-white text-sm rounded-md hover:bg-red-700 transition-colors"
+                  className="flex-1 px-4 py-2 bg-gradient-to-r from-red-600 to-red-700 text-white text-sm rounded-lg hover:from-red-700 hover:to-red-800 transition-all duration-300 shadow-lg font-semibold"
                 >
                   Delete
                 </button>
