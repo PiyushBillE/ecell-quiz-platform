@@ -117,18 +117,7 @@ const Login = () => {
               ? 'Sign in to your account'
               : 'Create a new account'}
           </h2>
-          
-          {userType === 'admin' && (
-            <div className="mt-3 p-3 bg-blue-50 border border-blue-200 rounded-md">
-              <p className="text-sm text-blue-800">
-                <strong>Admin Credentials:</strong>
-                <br />
-                Email: EcellBVDU@ecell.com
-                <br />
-                Password: SharkTank2026
-              </p>
-            </div>
-          )}
+
 
           {userType === 'audience' && (
             <p className="mt-2 text-center text-sm text-gray-600">
